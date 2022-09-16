@@ -34,9 +34,9 @@ public class SearchController {
         List<Job> jobs = new ArrayList<>();
             if(searchType.toLowerCase() == "all"){
                 jobs = JobData.findAll();
-            }else {
-                jobs = JobData.findByColumnAndValue(searchType, searchTerm);
             }
+                jobs = JobData.findByColumnAndValue(searchType, searchTerm);
+
         model.addAttribute("jobs", jobs);
         model.addAttribute("type", searchType);
         model.addAttribute("term", searchTerm);

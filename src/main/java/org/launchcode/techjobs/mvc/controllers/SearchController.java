@@ -23,7 +23,7 @@ public class SearchController {
 
     @GetMapping(value = "")
     public String search(Model model) {
-        model.addAttribute("columns", columnChoices);
+        model.addAttribute("columns", ListController.columnChoices);
         return "search";
     }
 
@@ -32,16 +32,12 @@ public class SearchController {
     @PostMapping(value = "results")
     public String displaySearchResults(Model model, @RequestParam String searchType, @RequestParam String searchTerm) {
         List<Job> jobs = new ArrayList<>();
-        if(searchType.toLowerCase()=="all"){
-            jobs = JobData.findAll();
-        }else {
             jobs = JobData.findByColumnAndValue(searchType, searchTerm);
-        }
         model.addAttribute("jobs", jobs);
-        model.addAttribute("searchType", searchType);
-        model.addAttribute("searchTerm", searchTerm);
+        model.addAttribute("type", searchType);
+        model.addAttribute("term", searchTerm);
         model.addAttribute("columns", ListController.columnChoices);
-        model.addAttribute("title", "search");
+        model.addAttribute("title", "search for '" + searchTerm+"'");
         return "search";
     }
 
